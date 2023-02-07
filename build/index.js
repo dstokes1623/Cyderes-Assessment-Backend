@@ -10,6 +10,7 @@ dotenv_1.default.config();
 const app = (0, express_1.default)();
 const { PORT } = process.env;
 app.use('/v1', router_1.default);
+app.use(express_1.default.json);
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "yarn build && node build/index.js", 
+    "start": "yarn build && node build/index.js",
     "dev": "nodemon"
   },
   "repository": {
@@ -20,12 +20,15 @@
   },
   "homepage": "https://github.com/dstokes1623/Cyderes-Assessment-Backend#readme",
   "dependencies": {
+    "@types/node-fetch": "^2.6.2",
     "dotenv": "^16.0.3",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "express-validator": "^6.14.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
     "@types/node": "^18.11.19",
+    "node-fetch": "^2.6.6",
     "nodemon": "^2.0.20",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5"

@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { get } from "../../controllers/whois";
+import { get, whoisGetRequestValidation } from "../../controllers/whois";
 
 const router = Router();
 
-router.get("/:domain", get);
+router.get("/:domain", whoisGetRequestValidation, get);
 
 export default router;
