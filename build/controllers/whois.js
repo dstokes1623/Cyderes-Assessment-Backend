@@ -33,7 +33,22 @@ const get = async (req, res, next) => {
                 }
             });
         }
-        res.send(jsonDomainData);
+        ;
+        const { WhoisRecord: { registryData: { registrant, domainName, nameServers }, subRecords } } = jsonDomainData;
+        const cleanedSubRecords = subRecords ? subRecords.map((record) => {
+            return {
+                registrant: record.registrant,
+                domainName: record.domainName,
+                nameServers: record.nameServers,
+            };
+        }) : null;
+        const cleanedDataObject = {
+            registrant: registrant ? registrant : jsonDomainData.WhoisRecord.registrant,
+            domainName: domainName,
+            nameServers: nameServers,
+            subRecords: cleanedSubRecords,
+        };
+        res.send(cleanedDataObject);
     }
     catch (err) {
         console.error(`Could not fetch domain data: ${err}`);

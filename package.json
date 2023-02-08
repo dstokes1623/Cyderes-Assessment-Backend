@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/dstokes1623/Cyderes-Assessment-Backend#readme",
   "dependencies": {
+    "@types/cors": "^2.8.13",
     "@types/node-fetch": "^2.6.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-validator": "^6.14.3"

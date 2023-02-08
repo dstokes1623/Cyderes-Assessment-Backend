@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { WhoIsResponseShape, SubRecord } from "../utils/whoisResponseShape";
 import fetch from "node-fetch";
 import { param, ValidationChain, validationResult } from "express-validator";
 
@@ -22,7 +23,7 @@ export const get = async ( req: Request, res: Response, next: NextFunction ) => 
         const whoisQueryUrl = `${WHOIS_API_URL}?apiKey=${API_KEY}&domainName=${domain}&outputFormat=JSON`;
         //fetch domain/ip data
         const domainResponse = await fetch(whoisQueryUrl);
-        const jsonDomainData = await domainResponse.json();
+        const jsonDomainData: WhoIsResponseShape = await domainResponse.json();
 
         if(!jsonDomainData) {
             console.error("Error: Domain data not found");
@@ -32,9 +33,23 @@ export const get = async ( req: Request, res: Response, next: NextFunction ) => 
                     message: "Unable to retrieve domain data based on the information provided"
                 }
             })
-        }
+        };
+        const {WhoisRecord: {registryData: { registrant, domainName, nameServers }, subRecords }} = jsonDomainData;
+        const cleanedSubRecords = subRecords ? subRecords.map((record: SubRecord) => {
+            return {
+                registrant: record.registrant,
+                domainName: record.domainName,
+                nameServers: record.nameServers,
+            }
+        }) : null;
+        const cleanedDataObject = { 
+                registrant: registrant ? registrant : jsonDomainData.WhoisRecord.registrant,
+                domainName: domainName, 
+                nameServers: nameServers,
+                subRecords: cleanedSubRecords,
+        };
 
-        res.send(jsonDomainData);
+        res.send(cleanedDataObject);
     } catch (err) {
         console.error(`Could not fetch domain data: ${err}`);
         next(err);
