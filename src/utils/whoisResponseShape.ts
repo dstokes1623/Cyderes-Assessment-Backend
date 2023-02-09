@@ -70,7 +70,7 @@ export interface WhoIsResponseShape {
             updatedDate: string;
             updatedDateNormalized: string;
             whoisServer: string;
-        }
+        };
         status: string;
         strippedText: string;
         technicalContact: {
@@ -83,8 +83,8 @@ export interface WhoIsResponseShape {
         updatedDate: string;
         updatedDateNormalized: string;
         subRecords: SubRecord[]; 
-    }
-}
+    };
+};
 
 export interface SubRecord { 
     createdDate: string;
@@ -116,4 +116,4 @@ export interface SubRecord {
         ips: string[];
         rawText: string;
     };
-}
+};

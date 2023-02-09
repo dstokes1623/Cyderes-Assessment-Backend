@@ -13,7 +13,8 @@ const corsOptions ={
     origin:'*', 
     credentials:true,            
     optionSuccessStatus:200,
- }
+ };
+
  app.use(cors(corsOptions));
 
 app.use('/v1', router);
@@ -23,4 +24,4 @@ app.use(express.json);
 
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`)
-})
+});
